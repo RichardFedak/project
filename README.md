@@ -29,7 +29,9 @@ The project enables you to visualize sensor data, track historical trends, set t
 ## Usage
 Connect arduino with DHT11 sensor to the PC, start helper script
 
-```node .\publisher.js```
+```
+node .\publisher.js
+```
 
 Start the server ( `node .\backend\server.js`).
 Launch the frontend in the `frontend` directory (`ng serve`).
