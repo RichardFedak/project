@@ -27,7 +27,10 @@ The project enables you to visualize sensor data, track historical trends, set t
 4. Configure the publisher (arduino) and server to connect to the appropriate Azure resources by updating the configuration files with the required connection strings and endpoints.
 
 ## Usage
-Connect arduino with DHT11 sensor to the PC, start helper script (`node .\publisher.js`)
+Connect arduino with DHT11 sensor to the PC, start helper script
+
+```node .\publisher.js```
+
 Start the server ( `node .\backend\server.js`).
 Launch the frontend in the `frontend` directory (`ng serve`).
 Access the frontend in your web browser to see device/s and data.
