@@ -1,0 +1,9 @@
+#sensor-detail-component {
+  padding: 20px;
+  display: flex;
+  border: none;
+}
+
+canvas{
+  border: none;
+}

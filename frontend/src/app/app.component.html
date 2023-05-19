@@ -1,0 +1,15 @@
+<div class="container text-center">
+  <h1 class="my-4">Sensors</h1>
+  <div id="sensors-container" class="container">
+    <div id="sensors-list">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let device of devices" (click)="selectDevice(device)">
+          <button class="btn btn-primary">{{ device.name }}</button>
+        </li>
+      </ul>
+    </div>
+    <div id="sensor-details">
+      <app-sensor *ngIf="selectedDevice" [device]="selectedDevice"></app-sensor>
+    </div>
+  </div>
+</div>
