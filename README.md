@@ -31,7 +31,7 @@ The project enables you to visualize sensor data, track historical trends, set t
 Connect arduino with DHT11 sensor to the PC, start helper script
 
 ```
-node .\publisher.js
+node .\sensor\publisher.js
 ```
 
 Start the server 

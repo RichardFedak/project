@@ -1,6 +1,6 @@
 const { ServiceBusClient } = require("@azure/service-bus");
 const { SerialPort } = require('serialport');
-const { connectionString } = require("./config");
+const { connectionString } = require("../config");
 
 const port = new SerialPort({ path: 'COM4', baudRate: 9600 })
 
@@ -10,7 +10,7 @@ const deviceID = 1;
 const deviceName = "Device1"
 const alertReceiver = sbClient.createReceiver("arduinoAlert", deviceName);
 
-const alertHandler = async (m) => {
+const alertHandler = async (msg) => {
 	port.write('ALERT\n');
 };
 
