@@ -6,11 +6,11 @@ The DHT11 Sensor Monitoring System allows you to monitor temperature and humidit
 
 1. Frontend: A web application built with Angular that provides an interface for selecting devices and viewing their measured data.
 
-2. Server: A Node.js server that acts as an intermediary between the frontend and the sensor. It handles requests from the frontend, retrieves data from the sensor (via Azure), and provides APIs for accessing device information and data.
+2. [Server](./backend/README.md): A Node.js server that acts as an intermediary between the frontend and the sensor. It handles requests from the frontend, retrieves data from the sensor (via Azure), and provides APIs for accessing device information and data.
 
 3. Azure Integration: The system integrates with Azure services for data processing and notifications. It utilizes Azure Service Bus Topics for publishing sensor data to specific topics and Azure Logic Apps for email notifications.
    
-4. Arduino UNO with DHT11 sensor: For measuring temperature and humidity. Since Arduino UNO does not have built-in WiFi capabilities it uses Serial communication to send data to the PC via COM4 port to the helper script that forwards the data to the cloud.
+4. [Arduino UNO with DHT11 sensor](./sensor/README.md): For measuring temperature and humidity. Since Arduino UNO does not have built-in WiFi capabilities it uses Serial communication to send data to the PC via COM4 port to the helper script that forwards the data to the cloud.
 
 The project enables you to visualize sensor data, track historical trends, set thresholds for alert notifications, and receive email alerts when the temperature or humidity exceeds the defined thresholds.
 
