@@ -4,7 +4,7 @@ A project that utilizes a DHT11 sensor to measure temperature and humidity and p
 ## Description
 The DHT11 Sensor Monitoring System allows you to monitor temperature and humidity readings from a DHT11 sensor in real-time. The system consists of four main components:
 
-1. Frontend: A web application built with Angular that provides an interface for selecting devices and viewing their measured data.
+1. [Frontend](./frontend/README.md): A web application built with Angular that provides an interface for selecting devices and viewing their measured data.
 
 2. [Server](./backend/README.md): A Node.js server that acts as an intermediary between the frontend and the sensor. It handles requests from the frontend, retrieves data from the sensor (via Azure), and provides APIs for accessing device information and data.
 
@@ -25,9 +25,21 @@ The project enables you to visualize sensor data, track historical trends, set t
 1. Clone the repository from GitHub.
 2. Install the necessary dependencies for the frontend and server using `npm`.
 3. Set up the Azure services (Service Bus, Logic Apps, Functions) according to the provided instructions in the project documentation.
-4. Configure the publisher (arduino) and server to connect to the appropriate Azure resources by updating the configuration files with the required connection strings and endpoints.
+4. Configure the publisher (arduino) and server to connect to the appropriate Azure resources by updating the configuration files with the required connection strings.
 
 ## Usage
+
+Create Azure Service Bus, select standard pricing so you can create topics. Create topics "humidity" and "temperature" and "arduinoalert" for each topic create a subscription. Create a `config.js` file in root directory where you write your connection string for Service Bus and Subscription name. Should be in format:
+
+```
+module.exports = {
+    connectionString:"<YOUR-CONNECTION-STRING>",
+    subscriptionName: "<YOUR-SUBSCRIPTION-NAME>",
+}
+```
+
+(OPTIONAL) Create new topic "alert" and [Azure Logic App](./Logic_app.JPG) that will be responsible for sending emails.
+
 Connect arduino with DHT11 sensor to the PC, start helper script
 
 ```

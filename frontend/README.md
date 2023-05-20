@@ -1,27 +1,53 @@
-# Frontend
+## Prerequisites
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+Before using the Angular frontend code, make sure you have Angular installed globally on your machine. You can install it using the following command:
+```
+npm install -g @angular/cli
+```
 
-## Development server
+Install all the dependencies specified in `package.json`:
+```
+npm install
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Core Components
 
-## Code scaffolding
+### AppComponent
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The `AppComponent`, located in `/src/app/app.component.ts` is the main component of the application. It interacts with the backend server to fetch and display device data.
 
-## Build
+#### Properties
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `devices: Device[]`: An array of `Device` objects representing the devices retrieved from the server.
+- `selectedDevice: Device`: The currently selected device.
 
-## Running unit tests
+#### Methods
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- `constructor(private http: HttpClient)`: Initializes the `AppComponent` and fetches the list of devices from the server.
+- `fetchDevices()`: Fetches the list of devices from the server and maps the update functions for temperature and humidity data.
+- `selectDevice(device: Device)`: Selects a device and fetches its temperature and humidity data from the server.
+- `fetchDeviceData(deviceID: number, dataType: string)`: Fetches the device data (temperature or humidity (or other...)) for a specific device from the server.
 
-## Running end-to-end tests
+### SensorComponent
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The `SensorComponent`, located in `/src/app/sensor/sensor.component.ts` is a child component responsible for displaying the charts for temperature and humidity data of a specific device.
 
-## Further help
+### Properties
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- `@Input() device: Device`: The device object for which the charts are displayed.
+- `chartTemperature: any`: The chart object for temperature data.
+- `chartHumidity: any`: The chart object for humidity data.
+- `sub: Subscription`: The subscription object to track the timer for data updates.
+- `updateTimer: Observable<number>`: A timer that triggers data updates. Updates data every 5 seconds.
+
+### Lifecycle Hooks
+
+- `ngOnInit()`: Initializes the component and sets up the timer for periodically receive data from server and updating charts.
+- `ngOnChanges(changes: SimpleChanges)`: Responds to changes in the input properties, specifically when the `device` object changes. (e.g. when a new device is selected)
+
+### Methods
+
+- `createCharts()`: Creates the chart objects for temperature and humidity data.
+- `createChartTemperature()` & `createChartHumidity()`: Creates charts for temperature and humidity data using the Chart.js library.
+- `updateCharts()`: Updates the chart data based on the device's temperature and humidity data.
+

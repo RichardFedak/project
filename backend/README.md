@@ -45,7 +45,7 @@ This function saves the data of a specific device to a JSON file. It creates a f
 
 ### checkHighTemperatureOnDevice1()
 *This function is only for demonstration and can me modified for your needs.*  
-This function checks the average temperature value for the first device in the `devices` array. If the average temperature exceeds 50, an alert message is sent to the "arduinoalert" topic. You can uncomment the appropriate lines to send an email alert. 
+This function checks the average temperature value for the first device in the `devices` array. If the average temperature exceeds 50, an alert message is sent to the "arduinoalert" topic (OPTIONAL - also to the "alert" topic). You can uncomment the appropriate lines to send an email alert. 
 
 ### publish(message, topicName)
 
