@@ -1,6 +1,4 @@
 #include <dht.h>
-
-#include <funshield.h>
 /* 
 
  Animation Data - HGFEDCBA Map 
@@ -36,6 +34,9 @@ int sensor_data[2] = {
   -1,  // temperature
   -1,  // humidity
 };
+// digits
+
+const int digits[11] = { 0xc0, 0xf9, 0xa4, 0xb0, 0x99, 0x92, 0x82, 0xf8, 0x80, 0x90, 0xff };
 
 int curr_sensor_index = -1;  // temprature
 unsigned long last_sensor_update = millis();
@@ -46,18 +47,23 @@ unsigned long last_sensor_data_publish = millis();
 unsigned long t = millis();
 int rozdiel = 50;
 int animationSpeed = 100;
-const int ledPin = 13;  // LED pin number
 
 // Animation
 bool isAlert = false;
 int animationFrame = 0;
 bool goingRight = true;
+const int latch_pin = 4;
+const int clock_pin = 7;
+const int data_pin = 8;
 
 // DTH11
 dht DHT;
 #define DHT11_PIN 9
 
 // Buttons
+const int button1_pin = A1;
+const int button2_pin = A2;
+const int button3_pin = A3;
 bool buttonsState[] = { false, false, false };
 
 void displaySegment(int segment, int pos) {
@@ -170,7 +176,6 @@ void setup() {
   pinMode(button2_pin, INPUT);
   pinMode(button3_pin, INPUT);
 
-  pinMode(ledPin, OUTPUT);
   pinMode(latch_pin, OUTPUT);
   pinMode(clock_pin, OUTPUT);
   pinMode(data_pin, OUTPUT);
