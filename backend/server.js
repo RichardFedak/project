@@ -46,6 +46,27 @@ const devices = [
 	}
 ];
 
+function generateData(count, step) {
+	const data = [];
+	let currentValue = 0;
+
+	for (let i = 0; i < count; i++) {
+		const datetime = new Date();
+		datetime.setMinutes(datetime.getMinutes() + i * step);
+		currentValue = getRandomValue(currentValue);
+		data.push({ value: currentValue, datetime: datetime });
+	}
+
+	return data;
+}
+
+function getRandomValue(previousValue) {
+	// Generate a random value based on the previous value
+	const min = previousValue - 1;
+	const max = previousValue + 1;
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function addNewDevice(deviceData, dataType) {
 	devices.push({
 		id: deviceData.body.deviceID,
@@ -117,30 +138,6 @@ humidityReceiver.subscribe({
 	processError: myErrorHandler
 });
 
-
-function generateData(count, step) {
-	const data = [];
-	let currentValue = 0;
-
-	for (let i = 0; i < count; i++) {
-		const datetime = new Date();
-		datetime.setMinutes(datetime.getMinutes() + i * step);
-		currentValue = getRandomValue(currentValue);
-		data.push({ value: currentValue, datetime: datetime });
-	}
-
-	return data;
-}
-
-function getRandomValue(previousValue) {
-	// Generate a random value based on the previous value
-	const min = previousValue - 1;
-	const max = previousValue + 1;
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-
 // Endpoint to fetch the list of devices
 app.get('/api/devices', (req, res) => {
 	res.json(devices);
@@ -151,13 +148,17 @@ app.get('/api/devices/:id/:dataType', (req, res) => {
 	console.log("Get device data: ", req.params.id);
 	const deviceID = parseInt(req.params.id);
 	let device = devices.find(device => device.id === deviceID);
-	// device[req.params.dataType] = generateData(20,5); // for simulation only
-	let data = [];
-	if (device[req.params.dataType].length < 10) data = device[req.params.dataType]
-	else data = device[req.params.dataType].slice(-10);
 
 	if (device) {
-		res.json(data);
+		if (device[req.params.dataType]) {
+			// device[req.params.dataType] = generateData(20,5); // for simulation only
+			let data = [];
+			if (device[req.params.dataType].length < 10) data = device[req.params.dataType]
+			else data = device[req.params.dataType].slice(-10);
+			res.json(data);
+		} else {
+			res.status(404).json({ error: 'Data type not found' });
+		}
 	} else {
 		res.status(404).json({ error: 'Device not found' });
 	}
@@ -200,32 +201,30 @@ function saveDevicesData() {
 // setInterval(saveDevicesData, 60 * 1000); // TO STORE DATA
 
 async function publish(message, topicName) {
-    const sender = sbClient.createSender(topicName);
+	const sender = sbClient.createSender(topicName);
 
-    // create a batch object
-    let batch = await sender.createMessageBatch();
+	// create a batch object
+	let batch = await sender.createMessageBatch();
 
-    batch.tryAddMessage(message);
+	batch.tryAddMessage(message);
 
-    await sender.sendMessages(batch);
+	await sender.sendMessages(batch);
 
-    await sender.close();
+	await sender.close();
 }
-
-
 
 function calculateAverage(array) {
 	const sum = array.reduce((accumulator, curr) => accumulator + curr.value, 0);
 	const average = sum / array.length;
 	return average;
-  }
+}
 
-function checkHighTemperatureOnDevice1(){
-	if(devices.length > 0){
+function checkHighTemperatureOnDevice1() {
+	if (devices.length > 0) {
 		let dev1 = devices[0];
 		let avg = calculateAverage(dev1[TEMPERATURE]);
 		// avg = avg + 50; // TEST NOTIFICATION
-		if(avg > 50){
+		if (avg > 50) {
 			const now = new Date();
 			const msg = {
 				deviceID: dev1.id,
@@ -233,9 +232,9 @@ function checkHighTemperatureOnDevice1(){
 				temperature: avg,
 				dateTime: now.toLocaleString()
 			}
-			
+
 			// publish({body: msg}, "alert"); // TO SEND EMAIL
-			publish({body: msg}, "arduinoalert"); // TO ALERT ARDUINO
+			publish({ body: msg }, "arduinoalert"); // TO ALERT ARDUINO
 
 			console.log("Sending alert !", avg);
 		}
