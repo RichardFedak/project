@@ -24,7 +24,7 @@ The project enables you to visualize sensor data, track historical trends, set t
 # Installation
 1. Clone the repository from GitHub.
 2. Install the necessary dependencies for the frontend and server using `npm`.
-3. Set up the Azure services (Service Bus, Logic Apps, Functions) according to the provided instructions in the project documentation.
+3. Set up the Azure services (Service Bus, Logic Apps).
 4. Configure the publisher (arduino) and server to connect to the appropriate Azure resources by updating the configuration files with the required connection strings.
 
 ## Usage
