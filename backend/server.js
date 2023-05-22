@@ -20,11 +20,12 @@ app.use(cors({
 
 
 
-// var devices = [];
 const TEMPERATURE = "temperatureData";
 const HUMIDITY = "humidityData";
 
-// Simulation
+// var devices = []; // Uncomment to use real device/s
+
+// Simulation devices - comment out when you want to use real device/s
 const devices = [
 	{
 		id: 1,
