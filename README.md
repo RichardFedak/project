@@ -29,7 +29,7 @@ The project enables you to visualize sensor data, track historical trends, set t
 
 ## Usage
 
-Create Azure Service Bus, select standard pricing so you can create topics. Create topics "humidity" and "temperature" and "arduinoalert" for each topic create a subscription. Create a `config.js` file in root directory where you write your connection string for Service Bus and Subscription name. Should be in format:
+Create [Azure Service Bus](https://learn.microsoft.com/sk-sk/azure/service-bus-messaging/service-bus-quickstart-topics-subscriptions-portal), select standard pricing so you can create topics. Create topics "humidity" and "temperature" and "arduinoalert" for each topic create a subscription. Create a `config.js` file in root directory where you write your connection string for Service Bus and Subscription name. Should be in format:
 
 ```
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
 }
 ```
 
-(OPTIONAL) Create new topic "alert" and [Azure Logic App](./Logic_app.JPG) that will be responsible for sending emails.
+(OPTIONAL) Create new topic "alert" and [Azure Logic App](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview) that will be responsible for sending emails. It should look like [this](./Logic_app.JPG).
 
 Connect arduino with DHT11 sensor to the PC, start helper script
 
