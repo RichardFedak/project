@@ -4,6 +4,10 @@
   border: none;
 }
 
+#device-name {
+  width: 200%;
+}
+
 canvas{
   border: none;
 }
