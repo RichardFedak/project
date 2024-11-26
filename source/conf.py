@@ -4,7 +4,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-project = 'IoT project'
+project = 'Test project'
 copyright = '2024, RF'
 author = 'RF'
 # -- General configuration ---------------------------------------------------
