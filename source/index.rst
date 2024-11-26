@@ -54,7 +54,10 @@ Authentication
 
 To get started, you'll need your **EVALMY.AI** service token, which you can obtain `here <https://evalmy.ai>`.
 
-The service runs on your own instance of GPT, either through Azure or an OpenAI endpoint you provide. Due to capacity limits per organization, we cannot provide a direct GPT endpoint.
+The service runs on your own instance of GPT, either through Azure or an OpenAI endpoint you provide. 
+.. note::
+
+Due to capacity limits per organization, we cannot provide a direct GPT endpoint.
 
 Azure Configuration
 -------------------
