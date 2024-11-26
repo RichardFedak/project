@@ -1,91 +1,87 @@
-IoT Project Documentation
-=========================
+First Steps
+===========
 
-Welcome to the **IoT Project** documentation! This documentation will guide you through the various components, design decisions, and implementation details of the IoT system.
-
-Introduction
+Installation
 ------------
 
-The **IoT Project** is a cutting-edge system designed to connect physical devices to the internet, enabling them to send and receive data in real-time. The project leverages modern technologies to provide scalable, reliable, and secure communication between devices and the cloud.
+The **evalmy.ai** client library requires Python 3.8 or higher.
 
-Key Features
-------------
+To install the library, run the following command:
 
-- **Real-time Monitoring**: The system allows for continuous monitoring of connected devices.
-- **Data Analytics**: Provides real-time data analytics for quick decision-making.
-- **Scalability**: Designed to handle thousands of devices with ease.
-- **Security**: Implements robust encryption and authentication mechanisms to ensure data privacy.
+.. code-block:: bash
+   python -m pip install evalmyai
 
-Table of Contents
------------------
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Simple Usage
+-------------
 
-   overview
-   architecture
-   setup
-   usage
-   troubleshooting
+Here’s an example of simple usage:
 
-Overview
---------
-The IoT project enables a variety of devices to connect seamlessly to a central hub, where data is collected, processed, and transmitted to a cloud platform. This enables monitoring and controlling of devices from anywhere in the world.
+.. code-block:: python
+   from evalmyai import Evaluator
 
-Architecture
-------------
-The system follows a **client-server** model. Devices (clients) communicate with a central server, which processes the data and stores it in a secure database. The server exposes a RESTful API for data access and device management.
+   data = {
+       "expected": "Jane is twelve.",
+       "actual": "Jane is 12 yrs, 7 mths and 3 days old."
+   }
 
-Setup
------
-To set up the IoT system, follow the steps below:
+   evaluator = Evaluator(...) # see authentication later
 
-1. **Install Required Software**:
-   Ensure that you have Python 3.8 or higher installed. You can check this by running the following command in your terminal:
+   result = evaluator.evaluate(data)
 
-   .. code-block:: bash
-      python --version
+   print(result['contradictions'])
 
-2. **Clone the Repository**:
-   Clone the repository to your local machine:
+The result of the evaluation is as follows:
 
-   .. code-block:: bash
-      git clone https://github.com/username/iot-project.git
+.. code-block::
 
-3. **Install Dependencies**:
-   Install the required dependencies using pip:
+   {
+       "score": 1.0,
+       "reasoning": {
+           "statements": [
+               {
+                   "reasoning": "The statement from <TEXT 1> 'Jane is twelve' provides a general age for Jane, while <TEXT 2> 'Jane is 12 yrs, 7 mths and 3 days old' provides a more precise age. There is no contradiction between the two statements, as the second text simply provides more detail on Jane's age, but does not conflict with the first text's assertion that she is twelve years old. The criterion for severity in this context could be based on the impact of the age description on understanding Jane's age. Since both statements agree on Jane being twelve, the severity of the difference in description is negligible.",
+                   "summary": "Slight difference in the description of Jane's age.",
+                   "severity": "negligible"
+               }
+           ]
+       }
+   }
 
-   .. code-block:: bash
-      pip install -r requirements.txt
+Authentication
+--------------
 
-Usage
------
-Once the system is set up, you can begin using it right away. Here’s how to get started:
+To get started, you'll need your **EVALMY.AI** service token, which you can obtain [here](https://evalmy.ai).
 
-1. **Connect a Device**: 
-   Connect a supported IoT device to the network and ensure it’s powered on.
-   
-2. **Access the Dashboard**: 
-   Open the web-based dashboard at `http://localhost:5000` to view real-time data from your devices.
+The service runs on your own instance of GPT, either through Azure or an OpenAI endpoint you provide. Due to capacity limits per organization, we cannot provide a direct GPT endpoint.
 
-Troubleshooting
----------------
-If you encounter any issues, refer to the troubleshooting guide for common problems and solutions.
+Azure Configuration
+-------------------
 
-### Common Issues:
+If you use an Azure endpoint, the configuration should look like this:
 
-- **Device not connecting to the network**: Ensure the device is within range of the Wi-Fi network and the network credentials are correct.
-- **Data not updating on the dashboard**: Check if the server is running and verify the device is properly sending data.
+.. code-block:: python
+   token = "YOUR_EVALMYAI_TOKEN"
 
-For additional help, check out the official documentation or contact our support team.
+   auth_azure = {
+       "api_key": "cd0...101",
+       "azure_endpoint": "https://...azure.com/",
+       "api_version": "2023-07-01-preview",
+       "azure_deployment": "...",
+   }
 
-License
--------
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+   evaluator = Evaluator(auth_azure, token)
 
-Contact
--------
-For any questions, please reach out to:
+OpenAI Configuration
+--------------------
 
-- **Email**: support@iotproject.com
-- **Website**: https://www.iotproject.com
+If you use an OpenAI endpoint, the configuration should look like this:
+
+.. code-block:: python
+   token = "YOUR_EVALMYAI_TOKEN"
+
+   auth_open_ai = {
+       "api_key": "...",
+       "model": "gpt-4o" # select your model, we strongly recommend GPT-4.
+   }
+
+   evaluator = Evaluator(auth_open_ai, token)
