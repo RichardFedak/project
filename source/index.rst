@@ -52,7 +52,7 @@ The result of the evaluation is as follows:
 Authentication
 --------------
 
-To get started, you'll need your **EVALMY.AI** service token, which you can obtain `here <https://evalmy.ai>`_ .
+To get started, you'll need your **EVALMY.AI** service token, which you can obtain `here <https://evalmy.ai>`_
 
 The service runs on your own instance of GPT, either through Azure or an OpenAI endpoint you provide. 
 .. note::
