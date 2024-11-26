@@ -60,6 +60,7 @@ Azure Configuration
 If you use an Azure endpoint, the configuration should look like this:
 
 .. code-block:: python
+
    token = "YOUR_EVALMYAI_TOKEN"
 
    auth_azure = {
@@ -77,6 +78,7 @@ OpenAI Configuration
 If you use an OpenAI endpoint, the configuration should look like this:
 
 .. code-block:: python
+
    token = "YOUR_EVALMYAI_TOKEN"
 
    auth_open_ai = {
