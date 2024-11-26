@@ -58,7 +58,7 @@ The service runs on your own instance of GPT, either through Azure or an OpenAI 
 
 .. note::
 
-Due to capacity limits per organization, we cannot provide a direct GPT endpoint.
+   Due to capacity limits per organization, we cannot provide a direct GPT endpoint.
 
 Azure Configuration
 -------------------
