@@ -9,6 +9,7 @@ The **evalmy.ai** client library requires Python 3.8 or higher.
 To install the library, run the following command:
 
 .. code-block:: bash
+
    python -m pip install evalmyai
 
 Simple Usage
@@ -17,6 +18,7 @@ Simple Usage
 Here’s an example of simple usage:
 
 .. code-block:: python
+
    from evalmyai import Evaluator
 
    data = {
